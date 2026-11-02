@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Дом в Кызыл-Кайрате</title>
+<meta name="description" content="Продаётся трёхэтажный дом с цокольным этажом на участке 28 соток в посёлке Кызыл-Кайрат, Талгарский район. Вид на горы. 350 000 000 ₸.">
+<meta property="og:title" content="Дом с видом на горы · 28 соток · Кызыл-Кайрат">
+<meta property="og:description" content="Трёхэтажный дом с цокольным этажом, 4 спальни, гараж и навес. 350 000 000 ₸.">
+<meta property="og:image" content="img/hero.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prata&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: «вечер у дома» — полноэкранное фото в сумерках, тёплый свет окон как акцент; дальше факты, галерея по зонам, этажи, инженерия, место, контакты */
+:root{
+  --bg:#141922;        /* сумеречное небо */
+  --panel:#1C2330;
+  --line:#2D3646;
+  --fg:#EEF0F3;
+  --muted:#A3ACBA;
+  --lamp:#F0B865;      /* свет в окнах */
+  --lamp-ink:#1A1408;
+  --brick:#B9735A;
+  --wa:#25A55F;
+  --display:"Prata", Georgia, "Times New Roman", serif;
+  --body:"Golos Text", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;padding-bottom:84px}
+img{max-width:100%;display:block}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.15;text-wrap:balance}
+h2{font-size:clamp(26px,4.4vw,40px)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--lamp)}
+.ph{border-bottom:2px dashed var(--lamp);opacity:.9}
+section{padding-block:56px}
+.sec-head{display:grid;gap:10px;margin-bottom:26px;max-width:640px}
+.sec-head p{color:var(--muted);margin:0}
+
+/* hero */
+.hero{position:relative;min-height:min(92vh,820px);display:flex;align-items:flex-end;isolation:isolate}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(20,25,34,.15) 0%,rgba(20,25,34,.25) 40%,rgba(20,25,34,.92) 82%,var(--bg) 100%)}
+.hero .wrap{width:100%;padding-block:40px 36px}
+.place{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--fg);background:rgba(20,25,34,.6);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:6px 14px}
+.place svg{width:16px;height:16px;color:var(--lamp)}
+h1{font-size:clamp(34px,7vw,72px);margin:16px 0 12px;max-width:15ch}
+.hero .sub{color:#D5DAE2;font-size:clamp(16px,2.2vw,19px);max-width:46ch;margin:0 0 24px}
+.price-row{display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px}
+.price{font-family:var(--mono);font-size:clamp(26px,4.5vw,38px);font-weight:500;color:var(--lamp);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 24px;border-radius:12px;font:600 16px var(--body);text-decoration:none;border:0;cursor:pointer;color:var(--fg)}
+.btn svg{width:20px;height:20px;flex:none}
+.btn:focus-visible{outline:3px solid var(--lamp);outline-offset:3px}
+.btn-wa{background:var(--wa);color:#fff}
+.btn-line{border:1.5px solid rgba(255,255,255,.5);background:rgba(20,25,34,.35)}
+
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel)}
+.fact{padding:20px 18px;border-right:1px solid var(--line)}
+.fact:last-child{border-right:0}
+.fact .n{font-family:var(--display);font-size:clamp(26px,3.4vw,34px);line-height:1.1}
+.fact .n small{font-family:var(--body);font-size:15px;color:var(--muted)}
+.fact .l{color:var(--muted);font-size:14px;margin-top:6px}
+
+/* gallery */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.tab{background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:9px 16px;font:500 15px var(--body);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--lamp);color:var(--lamp-ink);border-color:var(--lamp)}
+.tab:focus-visible{outline:2px solid var(--lamp);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;grid-auto-flow:dense;gap:10px}
+.grid button{padding:0;border:0;background:var(--panel);border-radius:10px;overflow:hidden;cursor:zoom-in;position:relative}
+.grid button.w{grid-column:span 2}
+.grid button.t{grid-row:span 2}
+.grid img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.grid button:hover img{transform:scale(1.04)}
+.grid button span{position:absolute;left:8px;bottom:8px;background:rgba(20,25,34,.78);font-size:13px;padding:3px 9px;border-radius:6px}
+.grid button:focus-visible{outline:3px solid var(--lamp);outline-offset:2px}
+
+/* highlights */
+.hl{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.hl article{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:grid;grid-template-rows:auto 1fr}
+.hl img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.hl article div{padding:16px 18px 20px}
+.hl h3{font-size:22px;margin-bottom:6px}
+.hl p{margin:0;color:var(--muted);font-size:15px}
+
+/* photo band */
+.band{position:relative;isolation:isolate;min-height:min(70vh,560px);display:flex;align-items:flex-end;margin-block:24px}
+.band > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.band::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,var(--bg) 0%,rgba(20,25,34,0) 22%,rgba(20,25,34,0) 50%,rgba(20,25,34,.88) 100%)}
+.band .wrap{width:100%;padding-block:36px;display:flex;flex-wrap:wrap;gap:18px 28px;align-items:flex-end;justify-content:space-between}
+.quote{font-family:var(--display);font-size:clamp(24px,4vw,40px);line-height:1.2;margin:0;max-width:22ch;text-wrap:balance}
+
+/* request form */
+.req{display:grid;gap:8px;background:rgba(28,35,48,.85);border:1px solid var(--line);border-radius:14px;padding:18px}
+.req label{font-size:14px;color:var(--muted)}
+.req input,.req select{font:16px var(--body);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;min-height:48px;padding:0 14px;width:100%}
+.req input:focus,.req select:focus{outline:2px solid var(--lamp);outline-offset:1px}
+.req .btn{margin-top:8px}
+
+/* floors */
+.floors{display:grid;gap:0;border-top:1px solid var(--line)}
+.floor{display:grid;grid-template-columns:150px 1fr 200px;gap:24px;padding:24px 0;border-bottom:1px solid var(--line);align-items:start}
+.floor > *{min-width:0}
+.floor .lvl{font-family:var(--mono);font-size:13px;color:var(--lamp);letter-spacing:.06em;text-transform:uppercase;padding-top:6px}
+.floor h3{font-size:24px;margin-bottom:8px}
+.floor p{margin:0;color:var(--muted)}
+.floor img{border-radius:10px;aspect-ratio:4/3;object-fit:cover;width:100%;max-width:100%}
+.note{margin-top:18px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--lamp);border-radius:10px;padding:16px 18px;color:var(--muted)}
+.note b{color:var(--fg)}
+
+/* engineering */
+.eng{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:center}
+.eng > *{min-width:0}
+.eng ul{list-style:none;margin:0;padding:0}
+.eng li{display:grid;grid-template-columns:36px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.eng li svg{width:26px;height:26px;color:var(--lamp)}
+.eng li b{display:block;font-weight:600}
+.eng li span{color:var(--muted);font-size:15px}
+.eng .pics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.eng .pics img{border-radius:10px;aspect-ratio:3/4;object-fit:cover;width:100%}
+
+/* location */
+.loc{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+.loc > *{min-width:0}
+.loc img{border-radius:14px;aspect-ratio:4/3;object-fit:cover;width:100%}
+.addr{font-family:var(--mono);font-size:15px;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:18px 0}
+.loc p{color:var(--muted)}
+.link{color:var(--lamp);font-weight:600;text-decoration:none;border-bottom:1px solid currentColor}
+
+/* contact */
+.contact{position:relative;border-radius:22px;overflow:hidden;isolation:isolate;padding:clamp(28px,5vw,56px)}
+.contact > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.contact::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(20,25,34,.95) 0%,rgba(20,25,34,.82) 55%,rgba(20,25,34,.45) 100%)}
+.contact-in{display:grid;gap:18px;max-width:520px}
+.contact p{color:#D0D6DF;margin:0}
+.phone{display:grid;gap:12px;background:rgba(28,35,48,.85);border:1px solid var(--line);border-radius:14px;padding:18px}
+.phone .who{color:var(--muted);font-size:14px}
+.phone .num{font-family:var(--mono);font-size:24px;font-variant-numeric:tabular-nums;user-select:all}
+.phone .row{display:flex;flex-wrap:wrap;gap:8px}
+.phone .btn{min-height:46px;padding:0 18px;font-size:15px}
+.ok{font-size:13px;color:var(--wa)}
+footer{color:var(--muted);font-size:13px;padding-block:24px 10px;text-align:center}
+
+/* sticky bar (phones) */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:none;align-items:center;gap:12px;background:rgba(20,25,34,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);
+  padding:10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px))}
+.bar .p{font-family:var(--mono);color:var(--lamp);font-weight:500;white-space:nowrap}
+.bar .btn{flex:1;min-height:48px}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.96);display:flex;align-items:center;justify-content:center;
+  padding:calc(56px + env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) calc(56px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px))}
+.lb img{max-height:100%;max-width:100%;object-fit:contain;border-radius:6px}
+.lb button{position:absolute;background:rgba(255,255,255,.1);color:#fff;border:0;width:48px;height:48px;border-radius:50%;font-size:24px;cursor:pointer}
+.lb .x{top:calc(10px + env(safe-area-inset-top, 0px));right:max(12px, env(safe-area-inset-right, 0px))}
+.lb .pv{left:max(12px, env(safe-area-inset-left, 0px));top:50%;transform:translateY(-50%)}
+.lb .nx{right:max(12px, env(safe-area-inset-right, 0px));top:50%;transform:translateY(-50%)}
+.lb .cap{position:absolute;bottom:calc(16px + env(safe-area-inset-bottom, 0px));left:0;right:0;text-align:center;color:#ccd;font-size:14px}
+
+@media (max-width:860px){
+  .facts{grid-template-columns:repeat(2,1fr)}
+  .fact{border-bottom:1px solid var(--line)}
+  .fact:nth-child(2n){border-right:0}
+  .fact:last-child{grid-column:span 2;border-bottom:0}
+  .grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px}
+  .floor{grid-template-columns:1fr;gap:10px}
+  .floor .lvl{padding-top:0}
+  .eng,.loc{grid-template-columns:1fr}
+  .hl{grid-template-columns:1fr 1fr}
+  .bar{display:flex}
+}
+@media (max-width:520px){.hl{grid-template-columns:1fr}.hl article{grid-template-columns:120px 1fr;grid-template-rows:none}.hl img{aspect-ratio:auto;height:100%}.hl article div{padding:12px 14px}.hl h3{font-size:19px}}
+@media (min-width:861px){body{padding-bottom:0}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.grid img{transition:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <img src="img/hero.jpg" alt="Фасад дома вечером: кирпич и белая отделка, подсвеченные окна и балконы" fetchpriority="high">
+  <div class="wrap">
+    <span class="place"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>Кызыл-Кайрат · Талгарский тракт</span>
+    <h1>Большой дом с видом на горы</h1>
+    <p class="sub">Три этажа и цокольный этаж на участке 28 соток. Своя котельная, тёплые полы, гараж в доме и навес во дворе.</p>
+    <div class="price-row">
+      <div class="price">350 000 000 ₸</div>
+      <a class="btn btn-wa wa" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2Z"/></svg>
+        Написать в WhatsApp</a>
+      <a class="btn btn-line" href="#photos">Смотреть фото</a>
+    </div>
+  </div>
+</header>
+
+<section><div class="wrap">
+  <div class="facts">
+    <div class="fact"><div class="n">28 <small>соток</small></div><div class="l">участок</div></div>
+    <div class="fact"><div class="n">3 <small>+ цоколь</small></div><div class="l">этажа</div></div>
+    <div class="fact"><div class="n">4</div><div class="l">спальни + зал и кухня-столовая</div></div>
+    <div class="fact"><div class="n">2</div><div class="l">места для машин: гараж и навес</div></div>
+    <div class="fact"><div class="n"><span class="ph">—</span> <small>м²</small></div><div class="l">площадь дома</div></div>
+  </div>
+</div></section>
+
+<section style="padding-top:8px"><div class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">Главное о доме</span>
+    <h2>Шесть причин приехать на просмотр</h2>
+  </div>
+  <div class="hl">
+    <article><img src="img/balcony-s.jpg" alt="Вид на горы с балкона" loading="lazy"><div><h3>Вид на Алатау</h3><p>Заснеженные вершины видно с балконов, террасы и из окон спален.</p></div></article>
+    <article><img src="img/fireplace-s.jpg" alt="Камин" loading="lazy"><div><h3>Настоящий камин</h3><p>Дровяной камин с мраморной отделкой в большом зале.</p></div></article>
+    <article><img src="img/kitchen-s.jpg" alt="Кухня-столовая" loading="lazy"><div><h3>Простор для семьи</h3><p>4 спальни, большой зал и кухня-столовая со свободной планировкой.</p></div></article>
+    <article><img src="img/basement-s.jpg" alt="Помещение под баню" loading="lazy"><div><h3>Своя баня</h3><p>Помещение под баню в цоколе, все коммуникации уже подведены.</p></div></article>
+    <article><img src="img/boiler-s.jpg" alt="Техническое помещение" loading="lazy"><div><h3>Тёплый дом</h3><p>Котёл, тёплые полы, газовый водонагреватель и насос в отдельной котельной.</p></div></article>
+    <article><img src="img/rear-s.jpg" alt="Дом и двор" loading="lazy"><div><h3>28 соток земли</h3><p>Гараж в доме, навес для машин, газон и дорожки из плитки.</p></div></article>
+  </div>
+</div></section>
+
+<section id="photos" style="padding-top:8px"><div class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">Фотографии</span>
+    <h2>Дом снаружи и внутри</h2>
+  </div>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-g="out">Снаружи</button>
+    <button class="tab" role="tab" aria-selected="false" data-g="in">Внутри</button>
+    <button class="tab" role="tab" aria-selected="false" data-g="tech">Цоколь</button>
+  </div>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">Планировка</span>
+    <h2>Что на каждом этаже</h2>
+  </div>
+  <div class="floors">
+    <div class="floor">
+      <div class="lvl">1 этаж</div>
+      <div><h3>Зал, кухня и спальня</h3><p>Из прихожей налево и направо открываются большой зал с камином и просторная кухня-столовая. Здесь же одна спальня и санузел. Пол из бамбуковой доски, потолки с лепниной, хрустальные люстры.</p></div>
+      <img src="img/living-s.jpg" alt="Зал с камином" loading="lazy">
+    </div>
+    <div class="floor">
+      <div class="lvl">2 этаж</div>
+      <div><h3>Три спальни и холл</h3><p>Деревянная лестница ведёт в просторный холл перед спальнями. Три спальни, санузел с ванной и стиральной машиной, выходы на балконы с видом на горы.</p></div>
+      <img src="img/room-s.jpg" alt="Холл второго этажа" loading="lazy">
+    </div>
+    <div class="floor">
+      <div class="lvl">3 этаж</div>
+      <div><h3>Мансарда с балконом</h3><p>Светлая мансарда с выходом на собственный балкон. Сейчас здесь кабинет, а можно устроить мастерскую, игровую или ещё одну спальню. Самый высокий вид на горы в доме.</p></div>
+      <img src="img/upstairs-s.jpg" alt="Мансарда третьего этажа" loading="lazy">
+    </div>
+    <div class="floor">
+      <div class="lvl">Цоколь</div>
+      <div><h3>Гараж, баня, котельная</h3><p>Гараж с подъёмными воротами прямо в доме, техническое помещение со всей инженерией, мастерская. Помещение под баню: коммуникации проведены, осталось сделать отделку на свой вкус.</p></div>
+      <img src="img/basement-s.jpg" alt="Помещение под баню в цокольном этаже" loading="lazy">
+    </div>
+  </div>
+  <div class="note"><b>Свободная планировка на первом этаже.</b> Зал и кухня не разделены стенами, поэтому пространство очень просторное. При желании легко выделить дополнительные комнаты.</div>
+</div></section>
+
+<section><div class="wrap eng">
+  <div>
+    <div class="sec-head">
+      <span class="eyebrow">Инженерия</span>
+      <h2>Тепло и вода под контролем</h2>
+      <p>Вся система собрана в одном техническом помещении на цокольном этаже.</p>
+    </div>
+    <ul>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c3 4 5 7 5 10a5 5 0 0 1-10 0c0-3 2-6 5-10Z"/></svg><div><b>Котёл отопления</b><span>Радиаторы во всех комнатах</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18h18M5 14c2-2 4 2 7 0s5 2 7 0"/></svg><div><b>Тёплые полы</b><span>Комфортно ходить босиком зимой</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="3"/><path d="M12 7v6"/></svg><div><b>Газовый водонагреватель</b><span>Горячая вода без перебоев</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg><div><b>Насосная станция и бак</b><span>Стабильное давление воды</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="13" height="10" rx="2"/><path d="M16 11l5-3v8l-5-3"/></svg><div><b>Видеонаблюдение</b><span>Камеры по периметру дома</span></div></li>
+    </ul>
+  </div>
+  <div class="pics">
+    <img src="img/boiler-s.jpg" alt="Техническое помещение: котёл, бак, насос, бойлер" loading="lazy">
+    <img src="img/fireplace-s.jpg" alt="Камин с мраморной отделкой" loading="lazy">
+  </div>
+</div></section>
+
+<div class="band">
+  <img src="img/side.jpg" alt="Дом на фоне заснеженных гор" loading="lazy">
+  <div class="wrap">
+    <p class="quote">Утро начинается с вида на горы, вечер — у камина.</p>
+    <a class="btn btn-wa wa" href="#" target="_blank" rel="noopener">Договориться о просмотре</a>
+  </div>
+</div>
+
+<section><div class="wrap loc">
+  <img src="img/walk.jpg" alt="Балкон с выходом из двух спален" loading="lazy" style="aspect-ratio:3/4;max-height:520px">
+  <div>
+    <div class="sec-head" style="margin-bottom:0">
+      <span class="eyebrow">Расположение</span>
+      <h2>Тихий посёлок у подножия гор</h2>
+    </div>
+    <div class="addr">пос. Кызыл-Кайрат, Талгарский район, Алматинская область · по Талгарскому тракту</div>
+    <p>Просторный участок в 28 соток, с террасы и балконов открывается вид на Заилийский Алатау. Ухоженный двор с газоном и плиточными дорожками, навес для машин.</p>
+    <a class="link" href="https://2gis.kz/almaty/search/%D0%9A%D1%8B%D0%B7%D1%8B%D0%BB-%D0%9A%D0%B0%D0%B9%D1%80%D0%B0%D1%82" target="_blank" rel="noopener">Открыть посёлок на карте 2ГИС →</a>
+  </div>
+</div></section>
+
+<section id="contact"><div class="wrap">
+  <div class="contact">
+    <img src="img/balcony.jpg" alt="" loading="lazy">
+    <div class="contact-in">
+      <span class="eyebrow">Просмотр</span>
+      <h2>Приезжайте посмотреть дом вживую</h2>
+      <p>Покажу дом и участок в удобное время, в том числе в выходные. Отвечу на вопросы о документах и условиях сделки.</p>
+      <form class="req" id="req">
+        <label for="rName">Ваше имя</label>
+        <input id="rName" autocomplete="name" placeholder="Например, Айгерим">
+        <label for="rWhen">Когда удобно посмотреть</label>
+        <select id="rWhen">
+          <option>В ближайшие дни</option>
+          <option>На этих выходных</option>
+          <option>В будни вечером</option>
+          <option>Сначала хочу задать вопросы</option>
+        </select>
+        <button class="btn btn-wa" type="submit">Отправить заявку в WhatsApp</button>
+      </form>
+      <div class="phone">
+        <div class="who">Собственник, <span class="ph">имя</span></div>
+        <div class="num"><span class="ph" id="num">+7 7__ ___ __ __</span></div>
+        <div class="row">
+          <a class="btn btn-wa wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn btn-line" id="call" href="#">Позвонить</a>
+          <button class="btn btn-line" id="copy" type="button">Скопировать номер</button>
+        </div>
+        <div class="ok" id="ok" hidden>Номер скопирован</div>
+      </div>
+    </div>
+  </div>
+  <footer>Продажа от собственника · Кызыл-Кайрат, Талгарский район</footer>
+</div></section>
+
+<div class="bar">
+  <span class="p">350 млн ₸</span>
+  <a class="btn btn-wa wa" href="#" target="_blank" rel="noopener">Написать в WhatsApp</a>
+</div>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Просмотр фото">
+  <img id="lbImg" alt="">
+  <button class="x" id="lbX" aria-label="Закрыть">×</button>
+  <button class="pv" id="lbP" aria-label="Предыдущее фото">‹</button>
+  <button class="nx" id="lbN" aria-label="Следующее фото">›</button>
+  <div class="cap" id="lbC"></div>
+</div>
+
+<script>
+// === Контакты: замените здесь ===
+const PHONE = "77000000000";          // номер без + и пробелов
+const PHONE_SHOWN = "+7 7__ ___ __ __"; // как показывать на странице
+const MSG = "Здравствуйте! Пишу по объявлению о продаже дома в Кызыл-Кайрате. Можно договориться о просмотре?";
+
+const wa = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(MSG);
+document.querySelectorAll(".wa").forEach(a => a.href = wa);
+document.getElementById("call").href = "tel:+" + PHONE;
+document.getElementById("num").textContent = PHONE_SHOWN;
+document.getElementById("copy").addEventListener("click", () => {
+  const n = document.getElementById("num"), ok = document.getElementById("ok");
+  navigator.clipboard.writeText(n.textContent.trim()).then(() => { ok.hidden = false; setTimeout(() => ok.hidden = true, 2000); })
+    .catch(() => { const r = document.createRange(); r.selectNodeContents(n); const s = getSelection(); s.removeAllRanges(); s.addRange(r); });
+});
+
+// Заявка: собирает сообщение и открывает WhatsApp продавца
+document.getElementById("req").addEventListener("submit", e => {
+  e.preventDefault();
+  const name = document.getElementById("rName").value.trim();
+  const when = document.getElementById("rWhen").value;
+  const text = `Здравствуйте! ${name ? "Меня зовут " + name + ". " : ""}Интересует дом в Кызыл-Кайрате за 350 млн ₸. Удобно посмотреть: ${when.toLowerCase()}.`;
+  const a = document.createElement("a");
+  a.href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(text);
+  a.target = "_blank"; a.rel = "noopener"; document.body.appendChild(a); a.click(); a.remove();
+});
+
+// Галерея: [файл, подпись, форма] w = широкая, t = высокая
+const G = {
+  out: [["hero","Фасад вечером","w"],["side","Вид сбоку, на фоне гор","w"],["sunset","Фасад с балконом","w"],["terrace","Терраса и ступени","t"],["balcony","Балкон, вид на горы","t"],["walk","Балкон, выход из двух спален","t"],["entrance","Вход в дом","t"],["rear","Вид с юга","w"],["window","Окно зала",""]],
+  in: [["living","Зал с камином","t"],["kitchen","Кухня-столовая","w"],["fireplace","Камин","t"],["door","Прихожая",""],["hall","Холл и зал","t"],["stairs","Лестница","t"],["room","Холл 2 этажа","t"],["bed1","Спальня","t"],["bed2","Спальня","t"],["bath1","Санузел, 2 этаж","t"],["bath3","Санузел, 1 этаж","t"],["upstairs","Мансарда, 3 этаж","t"]],
+  tech: [["boiler","Техническое помещение","t"],["workshop","Мастерская","t"],["basement","Помещение под баню, коммуникации проведены","w"]]
+};
+const grid = document.getElementById("grid");
+let cur = "out", idx = 0;
+function render(){
+  grid.innerHTML = "";
+  G[cur].forEach(([f,c,s],i) => {
+    const b = document.createElement("button");
+    if (s) b.className = s;
+    b.innerHTML = `<img src="img/${f}-s.jpg" alt="${c}" loading="lazy"><span>${c}</span>`;
+    b.onclick = () => openLb(i);
+    grid.appendChild(b);
+  });
+}
+document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
+  document.querySelectorAll(".tab").forEach(x => x.setAttribute("aria-selected", x === t));
+  cur = t.dataset.g; render();
+});
+render();
+
+const lb = document.getElementById("lb"), lbImg = document.getElementById("lbImg"), lbC = document.getElementById("lbC");
+function show(){ const [f,c] = G[cur][idx]; lbImg.src = `img/${f}.jpg`; lbImg.alt = c; lbC.textContent = `${c} · ${idx+1} / ${G[cur].length}`; }
+function openLb(i){ idx = i; show(); lb.hidden = false; document.body.style.overflow = "hidden"; document.getElementById("lbX").focus(); }
+function closeLb(){ lb.hidden = true; document.body.style.overflow = ""; }
+function step(d){ idx = (idx + d + G[cur].length) % G[cur].length; show(); }
+document.getElementById("lbX").onclick = closeLb;
+document.getElementById("lbP").onclick = () => step(-1);
+document.getElementById("lbN").onclick = () => step(1);
+lb.onclick = e => { if (e.target === lb) closeLb(); };
+document.addEventListener("keydown", e => { if (lb.hidden) return; if (e.key === "Escape") closeLb(); if (e.key === "ArrowLeft") step(-1); if (e.key === "ArrowRight") step(1); });
+let x0 = null;
+lb.addEventListener("touchstart", e => x0 = e.touches[0].clientX, {passive:true});
+lb.addEventListener("touchend", e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1); x0 = null; });
+</script>
+</body>
+</html>
