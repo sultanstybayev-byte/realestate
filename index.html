@@ -201,7 +201,7 @@ footer{color:var(--muted);font-size:13px;padding-block:24px 10px;text-align:cent
     <div class="fact"><div class="n">3 <small>+ цоколь</small></div><div class="l">этажа</div></div>
     <div class="fact"><div class="n">4</div><div class="l">спальни + зал и кухня-столовая</div></div>
     <div class="fact"><div class="n">2</div><div class="l">места для машин: гараж и навес</div></div>
-    <div class="fact"><div class="n"><span class="ph">—</span> <small>м²</small></div><div class="l">площадь дома</div></div>
+    <div class="fact"><div class="n"><span class="ph" id="area">—</span> <small>м²</small></div><div class="l">площадь дома</div></div>
   </div>
 </div></section>
 
@@ -325,7 +325,7 @@ footer{color:var(--muted);font-size:13px;padding-block:24px 10px;text-align:cent
         <button class="btn btn-wa" type="submit">Отправить заявку в WhatsApp</button>
       </form>
       <div class="phone">
-        <div class="who">Собственник, <span class="ph">имя</span></div>
+        <div class="who">Собственник, <span class="ph" id="owner">имя</span></div>
         <div class="num"><span class="ph" id="num">+7 7__ ___ __ __</span></div>
         <div class="row">
           <a class="btn btn-wa wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
@@ -340,7 +340,7 @@ footer{color:var(--muted);font-size:13px;padding-block:24px 10px;text-align:cent
 </div></section>
 
 <div class="bar">
-  <span class="p">350 млн ₸</span>
+  <span class="p" id="priceShort">350 млн ₸</span>
   <a class="btn btn-wa wa" href="#" target="_blank" rel="noopener">Написать в WhatsApp</a>
 </div>
 
@@ -352,16 +352,18 @@ footer{color:var(--muted);font-size:13px;padding-block:24px 10px;text-align:cent
   <div class="cap" id="lbC"></div>
 </div>
 
-<script>
+<script id="main">
 // === Контакты: замените здесь ===
 const PHONE = "77000000000";          // номер без + и пробелов
 const PHONE_SHOWN = "+7 7__ ___ __ __"; // как показывать на странице
+const PRICE_SHORT = "350 млн ₸"; // цена коротко
 const MSG = "Здравствуйте! Пишу по объявлению о продаже дома в Кызыл-Кайрате. Можно договориться о просмотре?";
 
 const wa = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(MSG);
 document.querySelectorAll(".wa").forEach(a => a.href = wa);
 document.getElementById("call").href = "tel:+" + PHONE;
 document.getElementById("num").textContent = PHONE_SHOWN;
+document.getElementById("priceShort").textContent = PRICE_SHORT;
 document.getElementById("copy").addEventListener("click", () => {
   const n = document.getElementById("num"), ok = document.getElementById("ok");
   navigator.clipboard.writeText(n.textContent.trim()).then(() => { ok.hidden = false; setTimeout(() => ok.hidden = true, 2000); })
@@ -373,7 +375,7 @@ document.getElementById("req").addEventListener("submit", e => {
   e.preventDefault();
   const name = document.getElementById("rName").value.trim();
   const when = document.getElementById("rWhen").value;
-  const text = `Здравствуйте! ${name ? "Меня зовут " + name + ". " : ""}Интересует дом в Кызыл-Кайрате за 350 млн ₸. Удобно посмотреть: ${when.toLowerCase()}.`;
+  const text = `Здравствуйте! ${name ? "Меня зовут " + name + ". " : ""}Интересует дом в Кызыл-Кайрате за ${PRICE_SHORT}. Удобно посмотреть: ${when.toLowerCase()}.`;
   const a = document.createElement("a");
   a.href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(text);
   a.target = "_blank"; a.rel = "noopener"; document.body.appendChild(a); a.click(); a.remove();
@@ -416,6 +418,153 @@ document.addEventListener("keydown", e => { if (lb.hidden) return; if (e.key ===
 let x0 = null;
 lb.addEventListener("touchstart", e => x0 = e.touches[0].clientX, {passive:true});
 lb.addEventListener("touchend", e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1); x0 = null; });
+</script>
+<script id="editor">
+// ===== Режим редактирования: откройте сайт с #edit в конце адреса =====
+(function(){
+  if (location.hash !== "#edit") { addEventListener("hashchange", () => { if (location.hash === "#edit") location.reload(); }); return; }
+
+  const css = `
+  body.editing [contenteditable]{outline:1px dashed rgba(240,184,101,.55);outline-offset:3px;border-radius:3px;cursor:text}
+  body.editing [contenteditable]:hover{outline-color:#F0B865}
+  body.editing [contenteditable]:focus{outline:2px solid #F0B865;background:rgba(240,184,101,.08)}
+  #ed-panel{position:fixed;z-index:100;right:max(12px, env(safe-area-inset-right, 0px));bottom:calc(12px + env(safe-area-inset-bottom, 0px));width:min(360px, calc(100vw - 24px));max-height:calc(100vh - 24px);overflow:auto;background:#0F131A;color:#EEF0F3;border:1px solid #3A4558;border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.5);font:14px/1.45 "Golos Text",system-ui,sans-serif}
+  #ed-panel header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;border-bottom:1px solid #2D3646;position:sticky;top:0;background:#0F131A}
+  #ed-panel header b{font-size:15px}
+  #ed-panel .body{padding:12px 14px;display:grid;gap:8px}
+  #ed-panel.min .body{display:none}
+  #ed-panel label{color:#A3ACBA;font-size:13px;margin-top:4px}
+  #ed-panel input,#ed-panel textarea{font:15px "Golos Text",system-ui,sans-serif;color:#EEF0F3;background:#1C2330;border:1px solid #2D3646;border-radius:8px;padding:9px 10px;width:100%}
+  #ed-panel textarea{min-height:70px;resize:vertical}
+  #ed-panel .hint{background:#1C2330;border-radius:8px;padding:10px;color:#C9D0DA;font-size:13px}
+  #ed-panel button{font:600 14px "Golos Text",system-ui,sans-serif;border:0;border-radius:9px;padding:11px 12px;cursor:pointer}
+  #ed-panel .save{background:#F0B865;color:#1A1408}
+  #ed-panel .sec{background:#2D3646;color:#EEF0F3}
+  #ed-panel .tiny{background:transparent;color:#A3ACBA;padding:4px 8px}
+  #ed-panel .msg{font-size:13px;color:#7FD6A3}
+  #ed-panel .steps{font-size:13px;color:#A3ACBA;margin:0;padding-left:18px}
+  body.editing .bar{display:none}
+  body.editing .grid button .rm{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:50%;background:rgba(200,60,60,.9);color:#fff;font-size:18px;line-height:30px;text-align:center;cursor:pointer}
+  `;
+  const st = document.createElement("style"); st.id = "ed-style"; st.textContent = css; document.head.appendChild(st);
+  document.body.classList.add("editing");
+
+  // Тексты, которые можно менять кликом
+  const SEL = "h1,h2,h3,.sub,.sec-head p,.hl p,.floor p,.note,.eng li b,.eng li span,.addr,.loc p,.contact p,.quote,.fact .l,.fact .n,.price,.eyebrow,footer,.link";
+  document.querySelectorAll(SEL).forEach(el => { el.contentEditable = "true"; el.spellcheck = true; });
+  document.addEventListener("paste", e => {
+    if (!e.target.closest || !e.target.closest("[contenteditable]")) return;
+    e.preventDefault(); document.execCommand("insertText", false, (e.clipboardData || window.clipboardData).getData("text"));
+  });
+  // Ссылки внутри редактируемого текста не открываем
+  document.addEventListener("click", e => { const a = e.target.closest && e.target.closest("[contenteditable] a, a[contenteditable]"); if (a) e.preventDefault(); }, true);
+
+  // Подписи фото в галерее: редактируются, × убирает фото
+  const grid = document.getElementById("grid");
+  function decorate(){
+    grid.querySelectorAll("button").forEach((b, i) => {
+      if (b.querySelector(".rm")) return;
+      const sp = b.querySelector("span"); sp.contentEditable = "true";
+      sp.addEventListener("input", () => { G[cur][i][1] = sp.textContent.trim(); });
+      const rm = document.createElement("i"); rm.className = "rm"; rm.textContent = "×"; rm.title = "Убрать фото из галереи"; b.appendChild(rm);
+    });
+  }
+  new MutationObserver(decorate).observe(grid, {childList:true}); decorate();
+  grid.addEventListener("click", e => {
+    e.stopPropagation(); e.preventDefault();
+    if (e.target.classList.contains("rm")) {
+      const i = [...grid.children].indexOf(e.target.closest("button"));
+      G[cur].splice(i, 1); render();
+    }
+  }, true);
+  grid.addEventListener("keydown", e => { if (e.target.isContentEditable && e.key === " ") e.stopPropagation(); }, true);
+
+  // Панель
+  const ownerEl = document.getElementById("owner"), areaEl = document.getElementById("area");
+  const clean = s => (s || "").replace(/^имя$|^—$/, "");
+  const p = document.createElement("div"); p.id = "ed-panel";
+  p.innerHTML = `
+    <header><b>Редактирование сайта</b><span><button class="tiny" id="ed-min" type="button">Свернуть</button></span></header>
+    <div class="body">
+      <div class="hint">Кликните по любому тексту на странице и исправьте его. Подписи фото тоже меняются кликом, × убирает фото.</div>
+      <label for="ed-phone">Номер для WhatsApp и звонков (только цифры)</label>
+      <input id="ed-phone" inputmode="numeric" placeholder="77011234567">
+      <label for="ed-shown">Номер так, как его видят на сайте</label>
+      <input id="ed-shown" placeholder="+7 701 123 45 67">
+      <label for="ed-owner">Ваше имя</label>
+      <input id="ed-owner" placeholder="Например, Арман">
+      <label for="ed-area">Площадь дома, м²</label>
+      <input id="ed-area" inputmode="numeric" placeholder="Например, 420">
+      <label for="ed-short">Цена коротко (кнопка внизу на телефоне)</label>
+      <input id="ed-short">
+      <label for="ed-msg">Первое сообщение, которое придёт вам в WhatsApp</label>
+      <textarea id="ed-msg"></textarea>
+      <button class="save" id="ed-save" type="button">Сохранить файл index.html</button>
+      <button class="sec" id="ed-copy" type="button">Скопировать код страницы</button>
+      <div class="msg" id="ed-msg-ok" hidden></div>
+      <ol class="steps">
+        <li>Нажмите «Сохранить файл index.html».</li>
+        <li>На GitHub откройте репозиторий → Add file → Upload files.</li>
+        <li>Перетащите сохранённый index.html и нажмите Commit changes.</li>
+        <li>Через 1–2 минуты сайт обновится.</li>
+      </ol>
+      <button class="sec" id="ed-exit" type="button">Выйти из редактирования</button>
+    </div>`;
+  document.body.appendChild(p);
+  const $ = id => document.getElementById(id);
+  if (innerWidth < 700) { p.classList.add("min"); $("ed-min").textContent = "Развернуть"; }
+  const cfg = { phone: PHONE, shown: PHONE_SHOWN, msg: MSG, short: PRICE_SHORT };
+  $("ed-phone").value = PHONE === "77000000000" ? "" : PHONE;
+  $("ed-shown").value = PHONE_SHOWN.includes("_") ? "" : PHONE_SHOWN;
+  $("ed-owner").value = clean(ownerEl.textContent);
+  $("ed-area").value = clean(areaEl.textContent);
+  $("ed-short").value = PRICE_SHORT;
+  $("ed-msg").value = MSG;
+
+  const unph = el => el.classList.remove("ph");
+  $("ed-phone").oninput = e => { cfg.phone = e.target.value.replace(/\D/g, "") || "77000000000"; };
+  $("ed-shown").oninput = e => { cfg.shown = e.target.value.trim() || "+7 7__ ___ __ __"; const n = $("num"); n.textContent = cfg.shown; if (e.target.value.trim()) unph(n); };
+  $("ed-owner").oninput = e => { ownerEl.textContent = e.target.value.trim() || "имя"; e.target.value.trim() ? unph(ownerEl) : ownerEl.classList.add("ph"); };
+  $("ed-area").oninput = e => { areaEl.textContent = e.target.value.trim() || "—"; e.target.value.trim() ? unph(areaEl) : areaEl.classList.add("ph"); };
+  $("ed-short").oninput = e => { cfg.short = e.target.value.trim(); document.querySelector(".bar .p").textContent = cfg.short; };
+  $("ed-msg").oninput = e => { cfg.msg = e.target.value.trim(); };
+  $("ed-min").onclick = () => { p.classList.toggle("min"); $("ed-min").textContent = p.classList.contains("min") ? "Развернуть" : "Свернуть"; };
+  $("ed-exit").onclick = () => { location.hash = ""; location.reload(); };
+
+  function build(){
+    const c = document.documentElement.cloneNode(true);
+    ["#ed-panel", "#ed-style"].forEach(s => c.querySelector(s)?.remove());
+    c.querySelectorAll("[contenteditable]").forEach(el => { el.removeAttribute("contenteditable"); el.removeAttribute("spellcheck"); });
+    const b = c.querySelector("body"); b.classList.remove("editing"); if (!b.className) b.removeAttribute("class"); b.removeAttribute("style");
+    c.querySelector("#grid").innerHTML = "";
+    c.querySelectorAll(".tab").forEach((t, i) => t.setAttribute("aria-selected", i === 0 ? "true" : "false"));
+    c.querySelector("#lb").setAttribute("hidden", ""); c.querySelector("#lbImg").removeAttribute("src");
+    c.querySelector("#ok").setAttribute("hidden", "");
+    // Цена в описании для соцсетей и поиска
+    const priceTxt = document.querySelector(".price").textContent.trim();
+    c.querySelectorAll('meta[name="description"], meta[property="og:description"]').forEach(m => m.setAttribute("content", m.getAttribute("content").replace(/[\d\s]+₸/, " " + priceTxt)));
+    const m = c.querySelector("#main"); let t = m.textContent;
+    const q = v => JSON.stringify(v);
+    t = t.replace(/const PHONE = ".*?";/, () => `const PHONE = ${q(cfg.phone)};`)
+         .replace(/const PHONE_SHOWN = ".*?";/, () => `const PHONE_SHOWN = ${q(cfg.shown)};`)
+         .replace(/const PRICE_SHORT = ".*?";/, () => `const PRICE_SHORT = ${q(cfg.short)};`)
+         .replace(/const MSG = ".*?";/, () => `const MSG = ${q(cfg.msg)};`)
+         .replace(/const G = \{[\s\S]*?\n\};/, () => "const G = {\n" + Object.keys(G).map(k => `  ${k}: [` + G[k].map(r => q(r)).join(",") + "]").join(",\n") + "\n};");
+    m.textContent = t;
+    return "<!doctype html>\n" + c.outerHTML + "\n";
+  }
+  const ok = txt => { const o = $("ed-msg-ok"); o.textContent = txt; o.hidden = false; setTimeout(() => o.hidden = true, 4000); };
+  $("ed-save").onclick = () => {
+    const blob = new Blob([build()], {type: "text/html;charset=utf-8"});
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "index.html";
+    document.body.appendChild(a); a.click(); a.remove();
+    ok("Файл сохранён в «Загрузки». Если ничего не скачалось, используйте «Скопировать код».");
+  };
+  $("ed-copy").onclick = () => {
+    navigator.clipboard.writeText(build()).then(() => ok("Код скопирован. На GitHub откройте index.html → карандаш → выделите всё и вставьте."))
+      .catch(() => ok("Браузер не дал скопировать. Попробуйте «Сохранить файл»."));
+  };
+})();
 </script>
 </body>
 </html>
